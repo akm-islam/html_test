@@ -11,3 +11,29 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+.container{
+  display: inline;
+  color: rgb(102, 31, 31);
+}
+.col-md-6{
+  display: inline;
+}
+.navbar{
+  display: inline !important;
+  background-color:transparent
+}
+.maincontainer{
+  background-color: rgb(235, 221, 209);
+}
+.checkboxcontainer{
+  margin:auto 0;
+}
+.col1{
+  background-color:red ;
+}
+.col2{
+  background-color:yellow ;
+}
+.col3{
+  background-color:green ;
+}
