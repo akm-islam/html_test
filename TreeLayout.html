@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+  <title>Tree layout</title>
+</head>
+<style>
+.node {
+  fill: steelblue;
+  stroke: none;
+}
+.link {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 1px;
+}
+</style>
+<body>
+  <svg width="600" height="400">
+    <g transform="translate(5, 5)">
+      <g class="links"></g>
+      <g class="nodes"></g>
+    </g>
+  </svg>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.2.2/d3.min.js"></script>
+  <script>
+var data = {
+  "name": "A1",
+  "children": [
+    {
+      "name": "B1",
+      "children": [
+        {
+          "name": "C1",
+          "value": 100
+        },
+        {
+          "name": "C2",
+          "value": 300
+        },
+        {
+          "name": "C3",
+          "value": 200
+        }
+      ]
+    },
+    {
+      "name": "B2",
+      "value": 200
+    }
+  ]
+}
+/* 
+-- var root = d3.hierarchy(data) // creates the heirarchical data structure
+-- var treeLayout = d3.tree().size([400, 200]);
+-- treeLayout(root); //This’ll write x and y values on each node of root.
+-- use root.descendants() to get an array of all the nodes
+    join this array to circles (or any other type of SVG element)
+    use x and y to position the circles
+-- use root.links() to get an array of all the links
+    join the array to line (or path) elements
+    use x and y of the link’s source and target to position the line
+*/
+var root = d3.hierarchy(data)
+var treeLayout = d3.tree().size([600, 380])
+treeLayout(root)
+// Nodes or descendants
+d3.select('svg g.nodes')
+  .selectAll('circle.node') //.selectAll('circle') also works; circle.node is to specify scpecific class 
+  .data(root.descendants())
+  .enter()
+  .append('circle')
+  .classed('node', true)
+  .transition().duration(2000)
+  .attr('cx', function(d) {return d.x;})
+  .attr('cy', function(d) {return d.y;})
+  .attr('r', 5);
+
+// Links or Paths
+d3.select('svg g.links')
+  .selectAll('line.link')
+  .data(root.links())
+  .enter()
+  .append('line')
+  .classed('link', true)
+  .transition().duration(2000)
+  .attr('x1', function(d) {return d.source.x;})
+  .attr('y1', function(d) {return d.source.y;})
+  .attr('x2', function(d) {return d.target.x;})
+  .attr('y2', function(d) {return d.target.y;});
+  </script>
+</body>
+</htm
